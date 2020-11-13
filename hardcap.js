@@ -22,3 +22,16 @@ onNet('playerDropped', () => {
         playerLogged.splice(index, 1);
     }
 });
+
+setInterval(() => {
+    for (const source of playerLogged) {
+        if (!GetPlayerEndpoint(source)) {
+            const index = playerLogged.indexOf(source);
+            if (index !== -1) {
+                playerLogged.splice(index, 1);
+            }
+
+            DropPlayer(source, 'Connection lost');
+        }
+    }
+}, 30000);
